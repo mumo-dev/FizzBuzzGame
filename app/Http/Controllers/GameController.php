@@ -19,8 +19,15 @@ class GameController extends Controller
 
         $gameUrl = 'http://'.$_SERVER['HTTP_HOST'] . '/api/game/play/'.$gameId.'?answer=';
 
-        $instructions = " Use the url generated below to play the game.The game usually starts counting at 1 and ends at 100. Append your answer at the end of your generated game_url eg. ". $gameUrl . "1 assuming your response is 1";
+ 
+        $instructions ="Use the url generated below to play the game.".
+                "The game usually starts counting at 1 and ends at 100.". 
+                "Use the rules of FizzBuzz game. i.e Start with 1, and continue by entering the next number in the sequence.". 
+                "However, if the next number is divisible by 3, enter 'fizz' instead. If divisible by 5, enter 'buzz'.".
+                "If it is divisible by both 3 and 5, enter 'fizzbuzz'. Entering the wrong response ends the game.".
+                "Append your answer at the end of your generated game_url eg. $gameUrl . 1 assuming your response is 1" ;
 
+                
         return response()->json([
             'message'=>'Game started.',
             'instructions'=>$instructions,
@@ -42,7 +49,7 @@ class GameController extends Controller
             ]);
         }
 
-        $answer = $request->answer;
+        $answer = strtolower($request->answer);
         $gameUrl = 'http://'.$_SERVER['HTTP_HOST'] . '/api/game/play/'.$gameStatus->gameId.'?answer=';
        
         
